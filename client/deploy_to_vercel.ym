@@ -1,0 +1,21 @@
+---
+- name: Deploy to Vercel
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Install Node.js
+      community.general.nodejs:
+        state: present
+        version: 14.x
+
+    - name: Install dependencies
+      command: npm ci
+
+    - name: Build the application
+      command: npm run build
+
+    - name: Install Vercel CLI
+      command: npm install -g vercel
+
+    - name: Deploy to Vercel
+      command: vercel --token "{{ vercel_token }}" --prod
