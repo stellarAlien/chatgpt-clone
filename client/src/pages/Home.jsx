@@ -74,42 +74,18 @@ const Home = () => {
       }
 
       async function callAPI() {
-        
-        setChatLog([
-          ...chatLog,
-          {
-            chatPrompt: inputPrompt,
-            botMessage: `Invest in people and economic growth: The document calls for an economic stimulus program that promotes investments and capital spending. Job creation should be a primary goal, and the budgets for EU and member states' overseas development aid should be protected.
-
-              Invest in public services: Rather than cutting public services, the document argues that governments should invest more in them. This includes ensuring universal access to high-quality education and healthcare, and developing social protection systems that allow the most vulnerable to live with dignity and lift themselves out of poverty.
-              
-              Strengthen institutional democracy: The document highlights the importance of promoting greater participation in democratic processes by all stakeholders, ensuring transparency and accountability in political processes, and improving workplace democracy through better employee representation and opportunities for greater shared ownership.
-              
-              Tackle public debt through a transparent arbitration process: The authors argue that the problem of European public debt should be managed through a process that might include debt restructuring or cancellation, as opposed to simply implementing austerity measures.
-              
-              Address the underlying flaws in the financial system: The economic crisis revealed several flaws in the financial system, and the document argues that these need to be addressed as part of any comprehensive solution to avoid austerity.`,
-          },]);
         try {
-          const response = await fetch("https://127.0.0.0:8000", {
+          const response = await fetch("https://127.0.0.0:4000", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: inputPrompt }),
           });
-            //const data = response.body.botresponse;
+           const data = response.body.botresponse;
             setChatLog([
             ...chatLog,
             {
               chatPrompt: inputPrompt,
-              botMessage: `Invest in people and economic growth: The document calls for an economic stimulus program that promotes investments and capital spending. Job creation should be a primary goal, and the budgets for EU and member states' overseas development aid should be protected.
-
-              Invest in public services: Rather than cutting public services, the document argues that governments should invest more in them. This includes ensuring universal access to high-quality education and healthcare, and developing social protection systems that allow the most vulnerable to live with dignity and lift themselves out of poverty.
-              
-              Strengthen institutional democracy: The document highlights the importance of promoting greater participation in democratic processes by all stakeholders, ensuring transparency and accountability in political processes, and improving workplace democracy through better employee representation and opportunities for greater shared ownership.
-              
-              Tackle public debt through a transparent arbitration process: The authors argue that the problem of European public debt should be managed through a process that might include debt restructuring or cancellation, as opposed to simply implementing austerity measures.
-              
-              Address the underlying flaws in the financial system: The economic crisis revealed several flaws in the financial system, and the document argues that these need to be addressed as part of any comprehensive solution to avoid austerity.`
-              
+              botMessage: data,
             },
           ]);
           localStorage.setItem("chatLog", JSON.stringify(chatLog));
